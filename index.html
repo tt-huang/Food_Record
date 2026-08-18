@@ -10,22 +10,36 @@
     <div class="container">
       <h1>外食紀錄</h1>
       <form id="food_form">
-        <label for="date">日期</label>
+        <label for="date">日付</label>
         <input type="date" id="date" required />
 
         <label for="shop">店名</label>
-        <input type="text" id="shop" placeholder="例如：○○食堂" required />
+
+        <input type="text" id="shop" placeholder="ex：○○食堂" required />
+
+        <div class="shop-buttons">
+          <button type="button" class="shop-btn" data-shop="つきじ">
+            つきじ
+          </button>
+          <button type="button" class="shop-btn" data-shop="billy">
+            billy
+          </button>
+
+          <button type="button" class="shop-btn" data-shop="丸亀製麺">
+            丸亀製麺
+          </button>
+        </div>
 
         <label for="price">金額</label>
-        <input type="number" id="price" placeholder="例如：1200" required />
+        <input type="number" id="price" placeholder="ex：1200" required />
 
-        <label for="meal">類型</label>
+        <label for="meal">種類</label>
         <select id="meal" required>
-          <option value="">請選擇</option>
-          <option value="午餐">午餐</option>
-          <option value="晚餐">晚餐</option>
+          <option value="">選択してください</option>
+          <option value="ランチ">ランチ</option>
+          <option value="ディナー">ディナー</option>
         </select>
-        <button type="submit">新增 / 修改紀錄</button>
+        <button type="submit" class="submit-btn">記録を追加 / 編集</button>
       </form>
 
       <div id="record_list"></div>

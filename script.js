@@ -13,9 +13,9 @@ function allRecords() {
   // 清空目前畫面上的列表，避免重複繪製
   recordList.innerHTML = `
   <div class="record-header">
-    <span>日期</span>
+    <span>日付</span>
     <span>店名</span>
-    <span>類型</span>
+    <span>種類</span>
     <span>金額</span>
     <span>操作</span>
   </div>
@@ -30,11 +30,11 @@ function allRecords() {
     //把資料放進 HTML
     record.innerHTML = `
       <span>${recordData.date}</span>
-      <span>${recordData.shop}</span>
+      <span>${recordData.shop}</span>　
       <span>${recordData.price}</span>
       <span>${recordData.meal}</span>
-      <button class="edit-btn">修改</button>
-      <button class="delete-btn">刪除</button>
+      <button class="edit-btn">編集</button>
+      <button class="delete-btn">削除</button>
       <hr>
     `;
 
@@ -101,4 +101,14 @@ form.addEventListener("submit", (event) => {
   allRecords();
 
   form.reset();
+});
+
+//按鈕設定
+const shopInput = document.querySelector("#shop");
+const shopButtons = document.querySelectorAll(".shop-btn");
+
+shopButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    shopInput.value = button.dataset.shop;
+  });
 });
