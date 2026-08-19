@@ -159,15 +159,14 @@ h1 {
 .edit-btn:hover {
   background-color: #d7e5ed;
 }
-*/
 
 /* 刪除按鈕 */
 .delete-btn {
   padding: 5px 10px;
   border: 1px solid #e2c4c4;
   border-radius: 5px;
-  background-color: #f8e8e8;
-  color: #a45c5c;
+  background-color: #607d94;
+  color: white;
   cursor: pointer;
 }
 
