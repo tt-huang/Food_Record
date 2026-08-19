@@ -65,10 +65,13 @@ h1 {
 
 /* 店名快捷按鈕 */
 .shop-buttons {
-  margin-left: 30px;
+  margin-left: 60px;
   display: flex;
+  flex-wrap: wrap; /* 空間不夠時自動換行 */
   gap: 6px;
   margin-top: 2px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .shop-btn {
@@ -103,47 +106,71 @@ h1 {
 }
 
 /* 紀錄區域 */
+
 .record {
   display: flex;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #dbe1e6;
+  min-height: 52px;
+  padding: 8px 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-sizing: border-box;
+  transition: background-color 0.2s;
 }
 
 .record-header {
   display: flex;
   align-items: center;
-  padding: 12px 0;
+  padding: 13px 10px;
   font-weight: bold;
+  font-size: 14px;
   color: #475569;
-  border-bottom: 2px solid #64748b;
+  background-color: #eef2f5;
+  border-bottom: 2px solid #cbd5e1;
+  box-sizing: border-box;
+}
+
+/* 滑鼠移過去時 */
+.record:hover {
+  background-color: #f8fafc;
 }
 
 /* 清單標題 */
 /* 清單內容 */
+
+/* 日付 */
 .record-header span:nth-child(1),
 .record span:nth-child(1) {
   width: 20%;
 }
 
+/* 店名 */
 .record-header span:nth-child(2),
 .record span:nth-child(2) {
   width: 30%;
 }
 
+/* 種類 */
 .record-header span:nth-child(3),
 .record span:nth-child(3) {
   width: 15%;
 }
 
+/* 金額 */
 .record-header span:nth-child(4),
 .record span:nth-child(4) {
   width: 15%;
 }
 
+/* 操作 */
 .record-header span:nth-child(5),
 .record span:nth-child(5) {
   width: 20%;
+}
+
+.record-actions {
+  display: flex;
+  gap: 6px;
 }
 
 /* 編輯按鈕 */
@@ -198,4 +225,79 @@ h1 {
   background-color: #607d94;
   border-color: #607d94;
   color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  /* 隱藏桌面版表頭 */
+  .record-header {
+    display: none;
+  }
+
+  /* 每筆紀錄 */
+  .record {
+    display: flex;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    gap: 5px 10px;
+
+    padding: 14px 16px;
+    margin-bottom: 10px;
+
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+  }
+
+  /* 日期 */
+  .record span:nth-child(1) {
+    width: auto !important;
+    grid-column: 1 / -1;
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  /* 店名 */
+  .record span:nth-child(2) {
+    width: auto !important;
+    font-size: 16px;
+    color: #334155;
+  }
+
+  /* 種類 */
+  .record span:nth-child(3) {
+    width: auto !important;
+
+    font-size: 13px;
+    color: #64748b;
+    white-space: nowrap; /* 不換行 */
+  }
+
+  /* 金額 */
+  .record span:nth-child(4) {
+    width: auto !important;
+
+    grid-column: 2;
+    grid-row: 2;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #475569;
+    text-align: right;
+  }
+
+  /* 操作按鈕 */
+  .record .record-actions {
+    width: 100%;
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+
+    margin-top: 5px;
+    padding-top: 8px;
+
+    border-top: 1px solid #f1f5f9;
+  }
 }

@@ -31,8 +31,9 @@ function allRecords() {
     record.innerHTML = `
       <span>${recordData.date}</span>
       <span>${recordData.shop}</span>
-      <span>${recordData.price}</span>
-      <span>${recordData.meal}</span>
+       <span>${recordData.meal}</span>
+      <span>¥${recordData.price}</span>
+     
       <button class="edit-btn">編集</button>
       <button class="delete-btn">削除</button>
       <hr>
