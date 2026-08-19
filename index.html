@@ -10,35 +10,57 @@
     <div class="container">
       <h1>外食紀錄</h1>
       <form id="food_form">
-        <label for="date">日付</label>
-        <input type="date" id="date" required />
-
-        <label for="shop">店名</label>
-
-        <input type="text" id="shop" placeholder="ex：○○食堂" required />
-
-        <div class="shop-buttons">
-          <button type="button" class="shop-btn" data-shop="つきじ">
-            つきじ
-          </button>
-          <button type="button" class="shop-btn" data-shop="billy">
-            billy
-          </button>
-
-          <button type="button" class="shop-btn" data-shop="丸亀製麺">
-            丸亀製麺
-          </button>
+        <!-- 日付 -->
+        <div class="form-row">
+          <label for="date">日付</label>
+          <input type="date" id="date" required />
         </div>
 
-        <label for="price">金額</label>
-        <input type="number" id="price" placeholder="ex：1200" required />
+        <!-- 店名 -->
+        <div class="form-row">
+          <label for="shop">店名</label>
+          <input type="text" id="shop" placeholder="ex：○○食堂" required />
+          <div class="shop-buttons">
+            <button type="button" class="shop-btn" data-shop="つきじ">
+              つきじ
+            </button>
+            <button type="button" class="shop-btn" data-shop="billy">
+              billy
+            </button>
+            <button type="button" class="shop-btn" data-shop="丸亀製麺">
+              丸亀製麺
+            </button>
+          </div>
+        </div>
 
-        <label for="meal">種類</label>
-        <select id="meal" required>
-          <option value="">選択してください</option>
-          <option value="ランチ">ランチ</option>
-          <option value="ディナー">ディナー</option>
-        </select>
+        <!-- 金額 -->
+        <div class="form-row">
+          <label for="price">金額</label>
+          <input type="number" id="price" placeholder="ex：1200" required />
+        </div>
+
+        <!-- 種類 -->
+        <div class="form-row">
+          <label for="meal">種類</label>
+          <div class="meal-buttons">
+            <button type="button" class="meal-btn" data-meal="ランチ">
+              ランチ
+            </button>
+
+            <button type="button" class="meal-btn" data-meal="ディナー">
+              ディナー
+            </button>
+            <input type="hidden" id="meal" required />
+          </div>
+
+          <!-- <select id="meal" required>
+            <option value="">選択してください</option>
+            <option value="ランチ">ランチ</option>
+            <option value="ディナー">ディナー</option>
+          </select> -->
+        </div>
+
+        <!-- button -->
         <button type="submit" class="submit-btn">記録を追加 / 編集</button>
       </form>
 

@@ -6,30 +6,8 @@ body {
 h1 {
   text-align: center;
   font-size: 32px;
-  margin-bottom: 30px;
-}
-#food_form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 50px;
-}
-
-#food_form input,
-#food_form select {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-.submit-btn {
-  margin-top: 15px;
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  margin-bottom: 20px;
+  color: #334155;
 }
 
 .container {
@@ -38,11 +16,98 @@ h1 {
   padding: 20px;
 }
 
+/* 表單輸入區域 */
+#food_form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 50px;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 表單每一列 */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 表單標題文字 */
+.form-row label {
+  width: 50px;
+  flex-shrink: 0;
+  font-weight: bold;
+  color: #475569;
+}
+
+/* 輸入框 */
+#food_form input,
+#food_form select {
+  /* border: 3px red solid; */
+  flex: 1; /* 將輸入框設為同樣大小 */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #374151;
+}
+
+#food_form input:focus,
+#food_form select:focus {
+  outline: none;
+  border-color: #7c9db5;
+  box-shadow: 0 0 0 2px rgba(124, 157, 181, 0.15);
+}
+
+/* 店名快捷按鈕 */
+.shop-buttons {
+  margin-left: 30px;
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.shop-btn {
+  margin: 0;
+  padding: 4px 9px;
+  font-size: 12px;
+  line-height: 1.2;
+  border: 1px solid #c5d4df;
+  border-radius: 5px;
+  background-color: #e8f0f5;
+  color: #526b7a;
+  cursor: pointer;
+}
+
+.shop-btn:hover {
+  background-color: #d7e5ed;
+}
+
+/* 新增編輯按鈕 */
+.submit-btn {
+  margin-top: 15px;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #607d94;
+  color: white;
+  cursor: pointer;
+}
+.submit-btn:hover {
+  background-color: #506b80;
+}
+
+/* 紀錄區域 */
 .record {
   display: flex;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dbe1e6;
 }
 
 .record-header {
@@ -50,71 +115,88 @@ h1 {
   align-items: center;
   padding: 12px 0;
   font-weight: bold;
-  border-bottom: 2px solid #333;
+  color: #475569;
+  border-bottom: 2px solid #64748b;
 }
 
 /* 清單標題 */
-.record-header span:nth-child(1) {
-  width: 120px;
-}
-
-.record-header span:nth-child(2) {
-  width: 180px;
-}
-
-.record-header span:nth-child(3) {
-  width: 80px;
-}
-
-.record-header span:nth-child(4) {
-  width: 100px;
-}
-
-.record-header span:nth-child(5) {
-  width: 60px;
-}
-
 /* 清單內容 */
+.record-header span:nth-child(1),
 .record span:nth-child(1) {
-  width: 120px;
+  width: 20%;
 }
 
+.record-header span:nth-child(2),
 .record span:nth-child(2) {
-  width: 180px;
+  width: 30%;
 }
 
+.record-header span:nth-child(3),
 .record span:nth-child(3) {
-  width: 80px;
+  width: 15%;
 }
 
+.record-header span:nth-child(4),
 .record span:nth-child(4) {
-  width: 100px;
+  width: 15%;
 }
 
+.record-header span:nth-child(5),
 .record span:nth-child(5) {
-  width: 100px;
+  width: 20%;
 }
 
-/* 快捷按鈕設定 */
-.shop-buttons {
-  display: flex;
-  gap: 6px;
-  margin-top: -5px;
-  margin-bottom: 10px;
-}
-
-.shop-btn {
-  margin: 0;
-  padding: 3px 8px;
-  font-size: 12px;
-  line-height: 1.2;
-  border: 1px solid #d8d0c8;
+/* 編輯按鈕 */
+.edit-btn {
+  padding: 5px 10px;
+  border: 1px solid #c5d4df;
   border-radius: 5px;
-  background-color: #eee8e1;
-  color: #6b5b4d;
+  background-color: #607d94;
+  color: white;
   cursor: pointer;
 }
 
-.shop-btn:hover {
-  background-color: #e3d9cf;
+.edit-btn:hover {
+  background-color: #d7e5ed;
+}
+*/
+
+/* 刪除按鈕 */
+.delete-btn {
+  padding: 5px 10px;
+  border: 1px solid #e2c4c4;
+  border-radius: 5px;
+  background-color: #f8e8e8;
+  color: #a45c5c;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #f1d7d7;
+}
+
+/* 午餐晚餐按鈕 */
+.meal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.meal-btn {
+  padding: 8px 20px;
+  border: 1px solid #c5d4df;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #526b7a;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.meal-btn:hover {
+  background-color: #e8f0f5;
+}
+
+.meal-btn.active {
+  background-color: #607d94;
+  border-color: #607d94;
+  color: #ffffff;
 }

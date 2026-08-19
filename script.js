@@ -30,7 +30,7 @@ function allRecords() {
     //把資料放進 HTML
     record.innerHTML = `
       <span>${recordData.date}</span>
-      <span>${recordData.shop}</span>　
+      <span>${recordData.shop}</span>
       <span>${recordData.price}</span>
       <span>${recordData.meal}</span>
       <button class="edit-btn">編集</button>
@@ -110,5 +110,26 @@ const shopButtons = document.querySelectorAll(".shop-btn");
 shopButtons.forEach((button) => {
   button.addEventListener("click", () => {
     shopInput.value = button.dataset.shop;
+  });
+});
+
+//日期設定
+const dateInput = document.querySelector("#date");
+const today = new Date().toISOString().split("T")[0];
+dateInput.value = today;
+
+//午餐晚餐按鈕設定
+const mealButtons = document.querySelectorAll(".meal-btn");
+const mealInput = document.querySelector("#meal");
+
+mealButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    mealButtons.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    mealInput.value = button.dataset.meal;
   });
 });
