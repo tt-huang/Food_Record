@@ -17,8 +17,6 @@
         </div>
 
         <!-- 種類 -->
-        <!-- <label for="meal">種類</label> -->
-        <!-- <input type="text" id="meal" /> -->
         <div class="form-row">
           <label for="meal">種類</label>
           <div class="meal-buttons">
@@ -56,13 +54,21 @@
           <button type="button" class="shop-btn" data-shop="丸亀製麺">
             丸亀製麺
           </button>
+          <button type="button" class="shop-btn" data-shop="test">test</button>
         </div>
 
         <!-- button -->
         <button type="submit" class="submit-btn">新增</button>
       </form>
 
+      <!-- 清單列表 -->
       <div id="record_list"></div>
+
+      <!-- 合計金額 -->
+      <div class="summary">
+        <p>合計金額</p>
+        <h2 id="total_price">¥0</h2>
+      </div>
     </div>
   </body>
   <script src="./script.js"></script>

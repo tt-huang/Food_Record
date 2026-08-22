@@ -1,21 +1,101 @@
-//========== 讀取 localStorage 資料 ==========
+//========== ⭐️讀取 localStorage 資料 ==========
 let records = JSON.parse(localStorage.getItem("records")) || []; // records: 存放所有外食紀錄的陣列
-let editingIndex = null; //null : 現在沒有資料，所以是「新增模式」。
+let editingIndex = null; //記錄目前選取哪一筆資料 ，  null = 目前沒有選取
+let selectedIndex = null; //記錄目前選取哪一筆資料 , null = 目前沒有選取
 
-//==========  取得HTML元素 ==========
+//========== ⭐️取得HTML元素 ==========
 const form = document.querySelector("#food_form");
 const recordList = document.querySelector("#record_list");
 
-allRecords();
+//========== ⭐️新增資料 ==========
+form.addEventListener("submit", (event) => {
+  // ① 按新增
+  event.preventDefault(); //阻止瀏覽器原本的預設行為(重新整理頁面)
+  const inputDate = document.querySelector("#date").value; // ②取得日期
+  const inputShop = document.querySelector("#shop").value; // ②取得店名
+  const inputPrice = document.querySelector("#price").value; // ②取得金額
+  const inputMeal = document.querySelector("#meal").value; //　②取得種類
+  const recordData = {
+    //③　　建立Object(recordData)
+    date: inputDate,
+    shop: inputShop,
+    price: inputPrice,
+    meal: inputMeal,
+  };
 
-//========== 顯示資料 ==========
+  //④  判斷： 新增 or 修改
+  if (editingIndex === null) {
+    records.push(recordData); //⑤　新增　：　把這一筆 recordData 放進 records 陣列
+  } else {
+    records[editingIndex] = recordData; // ⑤　更新 : 找到 editingIndex 指定的那一筆資料，換成新的 recordData
+    editingIndex = null; // ⑥ 更新完成，回到新增模式
+    document.querySelector(".submit-btn").textContent = "新增"; // ⑦　將按鈕上的文字改回新增
+    document.querySelector(".submit-btn").classList.remove("update-mode"); // 移除 update-mode class，恢復新增模式的樣式
+  }
+
+  localStorage.setItem("records", JSON.stringify(records)); //⑧ 將 records 轉成 JSON 字串，並儲存到 localStorage
+  allRecords(); //　　⑨ 重新顯示
+  form.reset(); // ⑩ 清空表單
+});
+
+//========== ⭐️日期預設為今天 ==========
+const dateInput = document.querySelector("#date"); // ① 取得日期輸入框
+const today = new Date().toISOString().split("T")[0]; // ② 取得今天的日期，轉成 YYYY-MM-DD 格式
+dateInput.value = today; // ③　將今天的日期放入日期輸入框
+
+//========== ⭐️店名快捷按鈕　==========
+const shopInput = document.querySelector("#shop"); // ① 取得店名輸入框
+const shopButtons = document.querySelectorAll(".shop-btn"); // ② 取得所有店名快捷按鈕
+shopButtons.forEach((button) => {
+  // ③ 逐一處理每個店名快捷按鈕
+  button.addEventListener("click", () => {
+    // ④ 按下店名快捷按鈕
+    shopInput.value = button.dataset.shop; //  ⑤ 將按鈕的 data-shop 值放入店名輸入框
+  });
+});
+
+//========== ⭐️午餐 / 晚餐按鈕　==========
+const mealInput = document.querySelector("#meal"); // 取得種類的 hidden input
+const mealButtons = document.querySelectorAll(".meal-btn"); // 取得所有午餐 / 晚餐按鈕
+mealButtons.forEach((button) => {
+  // 逐一處理每個午餐 / 晚餐按鈕
+  button.addEventListener("click", () => {
+    // 按下午餐 / 晚餐按鈕
+
+    mealButtons.forEach((btn) => {
+      // 先移除所有按鈕的 active
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    // 幫目前點擊的按鈕加上 active
+
+    mealInput.value = button.dataset.meal;
+    // 將目前按鈕的 data-meal 值存進 hidden input
+  });
+});
+
+//========== ⭐️合計金額==========
+const totalPrice = document.querySelector("#total_price"); // ① 取得顯示金額的位置
+function updateTotalPrice() {
+  //② 建立一個「計算總金額」的功能
+  let total = 0; // ③ 準備一個total 的盒子，裡面目前是 0
+  records.forEach(function (record) {
+    //④ 一筆一筆查看 records
+    total += Number(record.price); //⑤ 把每一筆的金額加到 total
+  });
+  totalPrice.textContent = `¥${total}`; //⑥ 把結果放到畫面上
+}
+
+//========== ⭐️顯示資料 ==========
 function allRecords() {
   //==========  清空原本的內容，並建立清單標題 ==========
   recordList.innerHTML = `
     <div class="record-header">
       <span>日付</span>
+       <span>種類</span>
       <span>店名</span>
-      <span>種類</span>
+    
       <span>金額</span>
       <span>操作</span>
     </div>
@@ -29,8 +109,8 @@ function allRecords() {
     record.className = "record"; // 加上 record class，讓 CSS 套用每筆紀錄的樣式
     record.innerHTML = `
       <span>${recordData.date}</span>
-      <span>${recordData.shop}</span>
       <span>${recordData.meal}</span>
+      <span>${recordData.shop}</span>
       <span>¥${recordData.price}</span>
       <button class="delete-btn">削除</button>
       <button class="edit-btn">編集</button>
@@ -65,71 +145,7 @@ function allRecords() {
 
     recordList.appendChild(record); //把剛剛建立的 record 加到 recordList裡面
   });
+  updateTotalPrice(); //合計金額
 }
 
-//========== 新增資料 ==========
-form.addEventListener("submit", (event) => {
-  // ① 按新增
-  event.preventDefault(); //阻止瀏覽器原本的預設行為(重新整理頁面)
-  const inputDate = document.querySelector("#date").value; // ②取得日期
-  const inputShop = document.querySelector("#shop").value; // ②取得店名
-  const inputPrice = document.querySelector("#price").value; // ②取得金額
-  const inputMeal = document.querySelector("#meal").value; //　②取得種類
-  const recordData = {
-    //③　　建立Object(recordData)
-    date: inputDate,
-    shop: inputShop,
-    price: inputPrice,
-    meal: inputMeal,
-  };
-
-  //④  判斷： 新增 or 修改
-  if (editingIndex === null) {
-    records.push(recordData); //⑤　新增　：　把這一筆 recordData 放進 records 陣列
-  } else {
-    records[editingIndex] = recordData; // ⑤　更新 : 找到 editingIndex 指定的那一筆資料，換成新的 recordData
-    editingIndex = null; // ⑥ 更新完成，回到新增模式
-    document.querySelector(".submit-btn").textContent = "新增"; // ⑦　將按鈕上的文字改回新增
-    document.querySelector(".submit-btn").classList.remove("update-mode"); // 移除 update-mode class，恢復新增模式的樣式
-  }
-
-  localStorage.setItem("records", JSON.stringify(records)); //⑧ 將 records 轉成 JSON 字串，並儲存到 localStorage
-  allRecords(); //　　⑨ 重新顯示
-});
-
-//========== 日期預設為今天 ==========
-const dateInput = document.querySelector("#date"); // ① 取得日期輸入框
-const today = new Date().toISOString().split("T")[0]; // ② 取得今天的日期，轉成 YYYY-MM-DD 格式
-dateInput.value = today; // ③　將今天的日期放入日期輸入框
-
-//========== 店名快捷按鈕　==========
-const shopInput = document.querySelector("#shop"); // ① 取得店名輸入框
-const shopButtons = document.querySelectorAll(".shop-btn"); // ② 取得所有店名快捷按鈕
-shopButtons.forEach((button) => {
-  // ③ 逐一處理每個店名快捷按鈕
-  button.addEventListener("click", () => {
-    // ④ 按下店名快捷按鈕
-    shopInput.value = button.dataset.shop; //  ⑤ 將按鈕的 data-shop 值放入店名輸入框
-  });
-});
-
-//========== 午餐 / 晚餐按鈕　==========
-const mealInput = document.querySelector("#meal"); // 取得種類的 hidden input
-const mealButtons = document.querySelectorAll(".meal-btn"); // 取得所有午餐 / 晚餐按鈕
-mealButtons.forEach((button) => {
-  // 逐一處理每個午餐 / 晚餐按鈕
-  button.addEventListener("click", () => {
-    // 按下午餐 / 晚餐按鈕
-
-    mealButtons.forEach((btn) => {
-      // 先移除所有按鈕的 active
-      btn.classList.remove("active");
-    });
-
-    button.classList.add("active");
-    // 幫目前點擊的按鈕加上 active
-
-    mealInput.value = button.dataset.meal;
-    // 將目前按鈕的 data-meal 值存進 hidden input
-  });
-});
+allRecords();
